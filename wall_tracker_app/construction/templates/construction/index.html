@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wall Construction Progress</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Wall Construction Progress</h1>
+
+    <!-- Overall Construction Details Accordion -->
+    <div class="accordion mb-4" id="overallDetails">
+        <div class="card">
+            <div class="card-header" id="overallHeading">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#overallCollapse" aria-expanded="true" aria-controls="overallCollapse">
+                        Overall Construction Details
+                    </button>
+                </h2>
+            </div>
+            <div id="overallCollapse" class="collapse" aria-labelledby="overallHeading" data-parent="#overallDetails">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Total Cost:</strong> 3,334,500</li>
+                        <li class="list-group-item"><strong>Cost per Day:</strong> 111,150</li>
+                        <li class="list-group-item"><strong>Cost in Ice:</strong> 1,200 units</li>
+                        <li class="list-group-item"><strong>Cost in Coins:</strong> 2,134,500</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wall Profiles Accordion -->
+    <div class="accordion" id="wallProfiles">
+        {% for item in profile_data %}
+        <div class="card">
+            <div class="card-header" id="heading{{ forloop.counter }}">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                        {{ item.profile.name }}
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#wallProfiles">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Section</th>
+                                <th>Initial Height (ft)</th>
+                                <th>Days to Build</th>
+                                <th>Completion Date</th>
+                                <th>Cost (Gold Dragons)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for section in item.sections %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ section.initial_height }}</td>
+                                <td>{{ section.days_to_build }}</td>
+                                <td>{{ section.completion_date }}</td>
+                                <td>{{ section.cost }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
